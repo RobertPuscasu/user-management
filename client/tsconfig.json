@@ -1,0 +1,78 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "jsx": "react",
+    "outDir": "build/dist",
+    "sourceMap": false,
+    "rootDir": "src",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "noUnusedLocals": true,
+    "baseUrl": "./",
+    "rootDirs": [
+      "./src",
+      "./node_modules"
+    ],
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@forms/*": [
+        "src/forms/*"
+      ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@style/*": [
+        "src/stylus/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@theme/*": [
+        "src/theme/*"
+      ],
+      "@translations/*": [
+        "src/assets/translations/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "typings"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "jest",
+    "src/setupTests.ts",
+    "webpack.config.js"
+  ]
+}

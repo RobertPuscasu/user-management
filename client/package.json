@@ -1,0 +1,196 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server",
+    "build": "rimraf ./build && cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "start:script": "react-scripts start",
+    "build:script": "react-scripts build",
+    "test": "react-scripts test",
+    "test:coverage": "npm test -- --coverage",
+    "lint": "npm-run-all lint:ts lint:css",
+    "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
+    "lint:ts:fix": "eslint --fix \"./src/**/*.{ts,tsx}\"",
+    "lint:css": "stylelint \"./src/**/*.css\"",
+    "lint:css:fix": "stylelint --fix \"./src/**/*.css\"",
+    "stylus:fix": "stylus-supremacy format ./**/*.styl  --options ./stylus.config.json --replace"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/styles": "^4.5.0",
+    "axios": "0.19.0",
+    "connected-react-router": "6.6.1",
+    "history": "4.10.1",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "react-redux": "7.1.3",
+    "react-router-dom": "5.1.2",
+    "react-router-redux": "4.0.8",
+    "react-scripts": "3.3.0",
+    "redux": "4.0.4",
+    "redux-devtools-extension": "2.13.8",
+    "redux-observable": "1.2.0",
+    "redux-thunk": "2.3.0",
+    "rxjs": "6.5.3",
+    "typesafe-actions": "5.1.0",
+    "yup": "^0.28.0",
+    "redux-form": "8.2.6"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "1.3.0",
+    "@types/jest": "24.0.22",
+    "@types/node": "12.12.6",
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.4",
+    "@types/react-redux": "7.1.5",
+    "@types/react-router-dom": "5.1.3",
+    "@types/terser-webpack-plugin": "^2.2.0",
+    "@types/yup": "^0.26.27",
+    "@typescript-eslint/eslint-plugin": "2.6.1",
+    "@typescript-eslint/parser": "2.6.1",
+    "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^6.0.3",
+    "eslint": "6.7.2",
+    "eslint-config-prettier": "6.7.0",
+    "eslint-config-react": "1.1.7",
+    "eslint-plugin-css-modules": "2.11.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.17.0",
+    "extract-css-chunks-webpack-plugin": "^4.7.1",
+    "husky": "3.1.0",
+    "lint-staged": "9.4.3",
+    "npm-run-all": "4.1.5",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-cli": "6.1.3",
+    "prettier": "1.19.1",
+    "purgecss": "1.4.2",
+    "rimraf": "^3.0.0",
+    "stylelint": "12.0.0",
+    "stylelint-config-standard": "19.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "stylus-supremacy": "^2.14.0",
+    "sw-precache-webpack-plugin": "^0.11.5",
+    "terser-webpack-plugin": "^2.3.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "3.7.2",
+    "webpack": "4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-manifest-plugin": "^2.2.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended",
+      "plugin:css-modules/recommended"
+    ],
+    "plugins": [
+      "react",
+      "@typescript-eslint",
+      "prettier",
+      "css-modules"
+    ],
+    "env": {
+      "browser": true,
+      "jasmine": true,
+      "es6": true,
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "semi": false,
+          "overrides": [
+            {
+              "options": {
+                "parser": "babel-ts"
+              }
+            }
+          ]
+        }
+      ],
+      "no-undef": 0
+    },
+    "settings": {
+      "react": {
+        "pragma": "React",
+        "version": "detect"
+      }
+    },
+    "parser": "@typescript-eslint/parser"
+  },
+  "eslintIgnore": [
+    "src/documentcore/**",
+    "postcss.config.js"
+  ],
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "at-rule-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "blockless-after-blockless",
+            "blockless-after-same-name-blockless",
+            "first-nested"
+          ],
+          "ignore": [
+            "after-comment",
+            "inside-block"
+          ],
+          "ignoreAtRules": [
+            "apply",
+            "screen",
+            "font-face",
+            "nest"
+          ]
+        }
+      ],
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "variants",
+            "responsive",
+            "apply",
+            "screen"
+          ]
+        }
+      ],
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "font-path"
+          ]
+        }
+      ],
+      "selector-nested-pattern": "^&"
+    },
+    "ignoreFiles": []
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "npm run lint:ts --",
+    "*.css": "npm run lint:css --"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 11"
+  ]
+}
