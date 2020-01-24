@@ -2,8 +2,12 @@ package com.toptal.usermanagement.controller;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 
+import java.time.Duration;
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +21,7 @@ import com.toptal.usermanagement.dto.CreateUserResource;
 import com.toptal.usermanagement.dto.UserResource;
 import com.toptal.usermanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -53,6 +58,13 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    @GetMapping(value = "/hello", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    public Flux<String> hello() {
+        return Flux.fromIterable(List.of("Hello", "World", "!")).delayElements(Duration.ofSeconds(1));
+    }
+
+
 
 
 }

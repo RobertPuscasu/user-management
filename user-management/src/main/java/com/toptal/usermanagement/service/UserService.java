@@ -1,12 +1,18 @@
 package com.toptal.usermanagement.service;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.toptal.usermanagement.dto.AuthRequest;
+import com.toptal.usermanagement.jwt.JwtAuthenticationManager;
+import com.toptal.usermanagement.jwt.TokenProvider;
 import com.toptal.usermanagement.model.Role;
 import com.toptal.usermanagement.model.User;
 import com.toptal.usermanagement.repository.UserRepository;
@@ -16,11 +22,25 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('USER')")
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private final TokenProvider tokenProvider;
+    private final JwtAuthenticationManager jwtAuthenticationManager;
+
+    public Mono<String> login(AuthRequest request) {
+        return Optional.ofNullable(request)
+                .filter(Objects::nonNull)
+                .map(req -> new UsernamePasswordAuthenticationToken(req.getUserName(), req.getPassword()))
+                .map(authenticationToken -> {
+                    ReactiveSecurityContextHolder.withAuthentication(authenticationToken);
+                    return authenticationToken;
+                })
+                .map(authentication -> jwtAuthenticationManager.authenticate(authentication).map(tokenProvider::createToken))
+                .orElse(Mono.empty());
+    }
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")
     public Mono<User> findOneByEmail(String email) {
@@ -36,19 +56,8 @@ public class UserService {
         }).flatMap(userRepository::save);
     }
 
-    public Mono<User> update(User user) {
-        return userRepository.save(user);
-    }
 
     public Mono<User> findById(String id) {
         return userRepository.findById(id);
-    }
-
-    public Flux<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public Mono<Void> deleteById(String id) {
-        return userRepository.deleteById(id);
     }
 }
