@@ -17,7 +17,6 @@ import com.toptal.usermanagement.model.Role;
 import com.toptal.usermanagement.model.User;
 import com.toptal.usermanagement.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -33,18 +32,13 @@ public class UserService {
     public Mono<String> login(AuthRequest request) {
         return Optional.ofNullable(request)
                 .filter(Objects::nonNull)
-                .map(req -> new UsernamePasswordAuthenticationToken(req.getUserName(), req.getPassword()))
+                .map(req -> new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()))
                 .map(authenticationToken -> {
                     ReactiveSecurityContextHolder.withAuthentication(authenticationToken);
                     return authenticationToken;
                 })
                 .map(authentication -> jwtAuthenticationManager.authenticate(authentication).map(tokenProvider::createToken))
                 .orElse(Mono.empty());
-    }
-
-    @PreAuthorize("isAnonymous() or isAuthenticated()")
-    public Mono<User> findOneByEmail(String email) {
-        return userRepository.findOneByEmail(email);
     }
 
     @PreAuthorize("isAnonymous() or isAuthenticated()")

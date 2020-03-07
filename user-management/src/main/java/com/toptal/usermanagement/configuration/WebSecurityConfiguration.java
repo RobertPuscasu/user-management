@@ -37,43 +37,14 @@ public class WebSecurityConfiguration {
     };
 
 
+
     private final ReactiveUserDetailsService reactiveUserDetailsService;
     private final TokenProvider tokenProvider;
-
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder();
     }
-
-/*    @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        return http
-                .csrf().disable()
-                .authorizeExchange()
-                .matchers(PathRequest.toStaticResources().atCommonLocations())
-                .permitAll()
-                .matchers(EndpointRequest.to("health"))
-                .permitAll()
-                .matchers(EndpointRequest.to("info"))
-                .permitAll()
-                .matchers(EndpointRequest.toAnyEndpoint())
-                .hasRole(Role.ADMIN.name())
-                .pathMatchers("/users/**")
-                .permitAll()
-                .anyExchange()
-                .authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .formLogin()
-                .and()
-                .logout()
-                .logoutSuccessHandler(logoutSuccessHandler())
-                .and()
-                .build();
-    }*/
 
     @Bean
     public ServerLogoutSuccessHandler logoutSuccessHandler() {

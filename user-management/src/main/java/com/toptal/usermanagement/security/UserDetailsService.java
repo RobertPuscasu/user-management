@@ -19,11 +19,7 @@ public class UserDetailsService implements ReactiveUserDetailsService, ReactiveU
 
     @Override
     public Mono<UserDetails> findByUsername(String email) {
-        return userRepository.findOneByEmail(email).map(user ->
-        {
-            System.out.println(user);
-            return user;
-        }).map(ReactiveUserDetails::new);
+        return userRepository.findOneByEmail(email).map(ReactiveUserDetails::new);
     }
 
     @Override

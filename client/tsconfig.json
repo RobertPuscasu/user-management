@@ -1,36 +1,29 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./build",
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "module": "esNext",
     "target": "es6",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": false,
-    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "isolatedModules": true,
+    "lib": [
+      "es2016",
+      "es2017",
+      "es2018",
+      "dom"
+    ],
     "jsx": "react",
-    "outDir": "build/dist",
-    "sourceMap": false,
-    "rootDir": "src",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": false,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": false,
-    "noUnusedLocals": true,
-    "baseUrl": "./",
-    "rootDirs": [
-      "./src",
-      "./node_modules"
+    "moduleResolution": "node",
+    "allowJs": false,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/typings"
     ],
     "paths": {
       "@components/*": [
@@ -63,16 +56,13 @@
     }
   },
   "include": [
-    "src",
-    "typings"
+    "./src/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "build",
+    "backend",
     "scripts",
-    "acceptance-tests",
-    "jest",
-    "src/setupTests.ts",
-    "webpack.config.js"
+    "coverage",
+    "node_modules",
+    "./build/**/*"
   ]
 }
